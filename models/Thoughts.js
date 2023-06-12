@@ -1,12 +1,14 @@
 const { Schema, model } = require('mongoose');
 
+const Reaction = require('./Reaction');
+
 // Schema to create User model
 const thoughtsSchema = new Schema(
   {
     thoughtText: {
       type: String,
       required: true,
-      max_length: [280, 'Must not be more than 280 characters.']
+      maxlength: [280, 'Must not be more than 280 characters.']
     },
     createdAt: {
       type: Date,
@@ -23,7 +25,7 @@ const thoughtsSchema = new Schema(
         type: String,
         required: true,
     },
-    reactions: [reactionSchema],
+    reactions: [Reaction],
   },
   {
     // Indicating that we want getters to be included with our response, overriding the default behavior
