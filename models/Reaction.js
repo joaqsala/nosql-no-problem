@@ -18,13 +18,15 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: function (timestamp) {
+      get(timestamp) {
         const date = new Date(timestamp);
-        const options = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' };
+        const options = {
+          month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric',
+        };
         const formattedDate = date.toLocaleDateString('en-US', options);
 
-        return `${formattedDate} at ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })}`;
-      }
+        return `${formattedDate}`;
+      },
     },
   },
   {
@@ -32,7 +34,7 @@ const reactionSchema = new Schema(
       getters: true,
     },
     id: false,
-  }
+  },
 );
 
 module.exports = reactionSchema;

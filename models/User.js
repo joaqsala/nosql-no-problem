@@ -7,7 +7,7 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      trim: true
+      trim: true,
     },
     email: {
       type: String,
@@ -35,12 +35,12 @@ const userSchema = new Schema(
     ],
   },
   {
-    // Indicating that we want virtuals to be included with our response, overriding the default behavior
+    // Indicating we want virtuals included w/response, overriding the default behavior
     toJSON: {
       virtuals: true,
     },
     id: false,
-  }
+  },
 );
 
 // Create a virtual property `friendCount` that gets the length of the friends array
@@ -49,8 +49,7 @@ userSchema
   // Getter
   .get(function () {
     return `${this.friends.length}`;
-  })
-
+  });
 
 // Initialize our User model
 const User = model('user', userSchema);

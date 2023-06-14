@@ -20,7 +20,7 @@ const thoughtSchema = new Schema(
         };
         const formattedDate = date.toLocaleDateString('en-US', options);
 
-        return `${formattedDate} at ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' })}`;
+        return `${formattedDate}`;
       },
     },
     username: {

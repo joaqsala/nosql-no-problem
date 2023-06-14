@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
 module.exports = {
   // Get all thoughts
@@ -12,11 +12,23 @@ module.exports = {
     }
   },
 
-  // Create a thought
+  // Create a thought and update the user with their thought
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
-      res.json(thought);
+      const user = await User.findOneAndUpdate(
+        { _id: req.body.userId },
+        { $addToSet: { thoughts: thought._id } },
+        { new: true },
+      );
+     
+      if (!user) {
+        return res.status(404).json({
+          message: 'Thought created, but found no user with that ID',
+        });
+      }
+
+      res.json('Thought has been created!');
     } catch (err) {
       res.status(500).json(err);
     }
@@ -38,4 +50,9 @@ module.exports = {
     }
   },
 
+  async updateThought(req, res) {
+    try {
+        const thought = Thought.findOneAndUpdate({})
+    }
+  }
 };
