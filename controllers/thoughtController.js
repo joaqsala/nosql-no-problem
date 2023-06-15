@@ -71,10 +71,12 @@ module.exports = {
     }
   },
 
-    // delete a thought
-    async deleteThought(req, res) {
+  // delete a thought
+  async deleteThought(req, res) {
     try {
-      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+      const thought = await Thought.findOneAndDelete({
+        _id: req.params.thoughtId,
+      });
 
       if (!thought) {
         res.status(404).json({ message: 'No thought with this id found.' });
@@ -83,12 +85,52 @@ module.exports = {
       await User.findOneAndUpdate(
         { username: thought.username },
         { $pull: { thoughts: req.params.thoughtId } },
-        { new: true },
+        { new: true }
       );
 
-      res.json({ message: 'The Thought has been deleted, and the user has been updated.' });
+      res.json({
+        message: 'The Thought has been deleted, and the user has been updated.',
+      });
     } catch (err) {
       res.status(500).json(err);
     }
   },
+
+  // Add a reaction to a thought
+  async createReaction(req, res) {
+    try {
+      const reaction = await Thought.findOneAndUpdate(
+        { _id: req.params._id },
+        { $addToSet: { reactions: req.body } },
+        { runValidators: true, new: true }
+      );
+
+      if (!reaction) {
+        res.status(404).json({ message: 'No thought found with that Id.' });
+      }
+
+      res.json(reaction);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+    // Remove a reaction to a thought
+    async removeReaction(req, res) {
+        try {
+          const reaction = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.params.reactionsId } } },
+            { runValidators: true, new: true },
+          );
+    
+          if (!reaction) {
+            res.status(404).json({ message: 'No reaction found with that Id.' });
+          }
+    
+          res.json(reaction);
+        } catch (err) {
+          res.status(500).json(err);
+        }
+      },
 };
