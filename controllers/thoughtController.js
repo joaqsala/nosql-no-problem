@@ -19,7 +19,7 @@ module.exports = {
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
         { $addToSet: { thoughts: thought._id } },
-        { new: true },
+        { new: true }
       );
 
       if (!user) {
@@ -85,7 +85,7 @@ module.exports = {
       await User.findOneAndUpdate(
         { username: thought.username },
         { $pull: { thoughts: req.params.thoughtId } },
-        { new: true }
+        { new: true },
       );
 
       res.json({
@@ -100,9 +100,9 @@ module.exports = {
   async createReaction(req, res) {
     try {
       const reaction = await Thought.findOneAndUpdate(
-        { _id: req.params._id },
+        { _id: req.params.thoughtId },
         { $addToSet: { reactions: req.body } },
-        { runValidators: true, new: true }
+        { runValidators: true, new: true },
       );
 
       if (!reaction) {
@@ -115,22 +115,22 @@ module.exports = {
     }
   },
 
-    // Remove a reaction to a thought
-    async removeReaction(req, res) {
-        try {
-          const reaction = await Thought.findOneAndUpdate(
-            { _id: req.params.thoughtId },
-            { $pull: { reactions: { reactionId: req.params.reactionsId } } },
-            { runValidators: true, new: true },
-          );
-    
-          if (!reaction) {
-            res.status(404).json({ message: 'No reaction found with that Id.' });
-          }
-    
-          res.json(reaction);
-        } catch (err) {
-          res.status(500).json(err);
-        }
-      },
+  // Remove a reaction to a thought
+  async removeReaction(req, res) {
+    try {
+      const reaction = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
+        { runValidators: true, new: true },
+      );
+
+      if (!reaction) {
+        res.status(404).json({ message: 'No reaction found with that Id.' });
+      }
+
+      res.json(reaction);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
