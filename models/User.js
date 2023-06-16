@@ -14,8 +14,8 @@ const userSchema = new Schema(
       lowercase: true,
       unique: true,
       validate: {
-        validator: function(v){
-          return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
+        validator(v) {
+          return /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/.test(v);
         },
         message: (props) => `${props.value} is not a valid email.`,
       },
@@ -47,6 +47,7 @@ const userSchema = new Schema(
 userSchema
   .virtual('friendCount')
   // Getter
+  // eslint-disable-next-line func-names
   .get(function () {
     return `${this.friends.length}`;
   });

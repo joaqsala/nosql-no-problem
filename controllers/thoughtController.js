@@ -13,13 +13,15 @@ module.exports = {
   },
 
   // Create a thought and update the user with their thought
+  // eslint-disable-next-line consistent-return
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
       const user = await User.findOneAndUpdate(
         { _id: req.body.userId },
+        // eslint-disable-next-line no-underscore-dangle
         { $addToSet: { thoughts: thought._id } },
-        { new: true }
+        { new: true },
       );
 
       if (!user) {
@@ -128,7 +130,7 @@ module.exports = {
         res.status(404).json({ message: 'No reaction found with that Id.' });
       }
 
-      res.json(reaction);
+      res.json({ message: 'The reaction has been removed.' });
     } catch (err) {
       res.status(500).json(err);
     }

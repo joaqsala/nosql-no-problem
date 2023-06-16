@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./config/connection');
 const routes = require('./routes');
 
+// eslint-disable-next-line no-unused-vars
 const cwd = process.cwd();
 
 const PORT = 3001;
@@ -13,6 +14,7 @@ app.use(routes);
 
 db.once('open', () => {
   app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`API server is running on port ${PORT}!`);
   });
 });

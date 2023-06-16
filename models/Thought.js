@@ -43,6 +43,7 @@ const thoughtSchema = new Schema(
 thoughtSchema
   .virtual('reactionCount')
   // Getter
+  // eslint-disable-next-line func-names
   .get(function () {
     return `${this.reactions.length}`;
   });
