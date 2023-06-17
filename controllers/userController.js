@@ -76,8 +76,6 @@ module.exports = {
   // Add a friend
   async addFriend(req, res) {
     try {
-      // eslint-disable-next-line no-unused-vars
-      const { userId, friendId } = req.params;
       const friend = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
