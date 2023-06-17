@@ -24,12 +24,15 @@ Go to https://github.com/joaqsala/nosql-no-problem and clone the repository. Ope
 
 ## Usage 
 
-![Readme generator prompts](./images/Screenshot-completed-prompts.png)
+![Adding a user in postman](./images/Screenshot-add-user-postman.png)
 
-Video walk through: https://watch.screencastify.com/v/tPqJRD0yyZWqv4zGoSdL
+Video walk through: https://watch.screencastify.com/v/ZDvEBoXD23Z3HA9IgHRW
 
 Follow the steps in the installation instructions posted above, and run node index.js. Open Postman and start entering your social network. To add users, add a username and email. To add thoughts, add the thoughtText, username, and userId which will link the user with their posted thoughts. Add a friend by including the userID and friends userID into the url. Add a reaction by including the thoughtID in the url and including the reactionBody and username in the body. See the walkthough video for examples.
 
+![Adding a thought in postman](./images/Screenshot-add-thought-postman.png)
+
+![Adding a reaction in postman](./images/Screenshot-add-reaction-postman.png)
 
 ## License
 
